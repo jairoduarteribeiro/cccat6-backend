@@ -8,6 +8,8 @@ export default class Cpf {
 
   private validate(cpf: string) {
     if (!this.hasValidFormat(cpf)) return false;
+    cpf = this.removeSymbols(cpf);
+    if (this.isBlocked(cpf)) return false;
     return true;
   }
 
@@ -18,5 +20,11 @@ export default class Cpf {
 
   private removeSymbols(cpf: string) {
     return cpf.replace(/[.-]/g, '');
+  }
+
+  private isBlocked(cpf: string) {
+    const digits = [...cpf];
+    const [firstDigit] = digits;
+    return digits.every((digit) => digit === firstDigit);
   }
 }
