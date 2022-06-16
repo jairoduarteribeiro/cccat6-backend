@@ -1,3 +1,11 @@
 export default class Cpf {
-  constructor(readonly value: string) {}
+  readonly value: string;
+
+  constructor(value: string) {
+    this.value = this.removeSymbols(value);
+  }
+
+  private removeSymbols(cpf: string) {
+    return cpf.replace(/[.-]/g, '');
+  }
 }

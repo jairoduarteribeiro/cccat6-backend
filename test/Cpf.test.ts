@@ -5,4 +5,9 @@ describe('Cpf', () => {
     const cpf = new Cpf('66931474022');
     expect(cpf.value).toBe('66931474022');
   });
+
+  it('should validate a Cpf with symbols', () => {
+    const cpf = new Cpf('669.314.740-22');
+    expect(cpf.value).toBe('66931474022');
+  });
 });
