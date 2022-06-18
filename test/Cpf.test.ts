@@ -20,4 +20,8 @@ describe('Cpf', () => {
   it('should not validate a blocked Cpf', () => {
     expect(() => new Cpf('111.111.111-11')).toThrow(new Error('Invalid Cpf'));
   });
+
+  it('should not validate a Cpf with wrong check digits', () => {
+    expect(() => new Cpf('669.314.740-21')).toThrow(new Error('Invalid Cpf'));
+  });
 });
