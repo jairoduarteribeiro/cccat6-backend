@@ -11,6 +11,11 @@ describe('Cpf', () => {
     expect(cpf.value).toBe('66931474022');
   });
 
+  it('should validate a Cpf with some check digit equal to zero', () => {
+    const cpf = new Cpf('480.145.780-07');
+    expect(cpf.value).toBe('48014578007');
+  });
+
   it('should not validate a Cpf with invalid format', () => {
     expect(() => new Cpf('669.314.740.22')).toThrow(new Error('Invalid Cpf'));
     expect(() => new Cpf(' 669.314.740-22')).toThrow(new Error('Invalid Cpf'));
