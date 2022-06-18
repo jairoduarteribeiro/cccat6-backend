@@ -2,7 +2,9 @@
   "name": "cccat6-backend",
   "packageManager": "yarn@3.2.1",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "watch": "jest --watchAll"
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
