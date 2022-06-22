@@ -14,6 +14,6 @@ export default class Freight {
   }
 
   getTotal() {
-    return this.total;
+    return this.total ? Math.max(this.total, 10) : this.total;
   }
 }
