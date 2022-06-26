@@ -1,9 +1,9 @@
-import Connection from '../src/Connection';
-import Dimension from '../src/Dimension';
-import Item from '../src/Item';
-import ItemRepository from '../src/ItemRepository';
-import ItemRepositoryDatabase from '../src/ItemRepositoryDatabase';
-import PgPromiseConnectionAdapter from '../src/PgPromiseConnectionAdapter';
+import Dimension from '../../src/domain/entity/Dimension';
+import Item from '../../src/domain/entity/Item';
+import ItemRepository from '../../src/domain/repository/ItemRepository';
+import Connection from '../../src/infra/database/Connection';
+import PgPromiseConnectionAdapter from '../../src/infra/database/PgPromiseConnectionAdapter';
+import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase';
 
 describe('ItemRepositoryDatabase', () => {
   const connection: Connection = PgPromiseConnectionAdapter.getInstance();

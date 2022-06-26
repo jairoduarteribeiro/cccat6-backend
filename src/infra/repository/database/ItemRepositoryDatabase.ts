@@ -1,7 +1,7 @@
-import Connection from './Connection';
-import Dimension from './Dimension';
-import Item from './Item';
-import ItemRepository from './ItemRepository';
+import Dimension from '../../../domain/entity/Dimension';
+import Item from '../../../domain/entity/Item';
+import ItemRepository from '../../../domain/repository/ItemRepository';
+import Connection from '../../database/Connection';
 
 export default class ItemRepositoryDatabase implements ItemRepository {
   constructor(private readonly connection: Connection) {}
