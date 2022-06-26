@@ -22,4 +22,8 @@ export default class ItemRepositoryMemory implements ItemRepository {
     this.items.push(item);
     return item.idItem;
   }
+
+  async delete(idItem: number): Promise<void> {
+    this.items = this.items.filter((item) => item.idItem !== idItem);
+  }
 }
