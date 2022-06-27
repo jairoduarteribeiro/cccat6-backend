@@ -2,9 +2,9 @@
   "name": "cccat6-backend",
   "packageManager": "yarn@3.2.1",
   "scripts": {
-    "test": "jest",
-    "coverage": "jest --coverage",
-    "watch": "jest --watchAll"
+    "test": "jest --runInBand",
+    "coverage": "jest --runInBand --coverage",
+    "watch": "jest --runInBand --watchAll"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
