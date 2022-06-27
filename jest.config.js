@@ -5,4 +5,5 @@ module.exports = {
   roots: ['<rootDir>/src', '<rootDir>/test'],
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   coverageDirectory: 'coverage',
+  setupFiles: ['<rootDir>/config/jest-setup.js'],
 };
