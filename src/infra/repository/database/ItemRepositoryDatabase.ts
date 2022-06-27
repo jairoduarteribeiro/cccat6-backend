@@ -43,7 +43,7 @@ export default class ItemRepositoryDatabase implements ItemRepository {
 
   private parseItemData(itemData: any): Item {
     const idItem = itemData['id_item'];
-    const description = itemData[''];
+    const description = itemData['description'];
     const price = parseFloat(itemData['price']);
     const width = itemData['width'];
     const height = itemData['height'];
