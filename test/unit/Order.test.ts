@@ -17,6 +17,12 @@ describe('Order', () => {
     expect(total).toBe(6090);
   });
 
+  it('should create an Order with an OrderCode', () => {
+    const order = new Order('669.314.740-22', new Date('2022-01-01T10:00:00'), 3);
+    const code = order.getCode();
+    expect(code).toBe('202200000003');
+  });
+
   it('should calculate the Freight of an Order', () => {
     const order = new Order('669.314.740-22');
     order.addItem(new Item(1, 'Guitarra', 1000, new Dimension(100, 30, 10), 3), 1);
