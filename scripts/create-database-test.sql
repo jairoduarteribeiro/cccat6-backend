@@ -11,3 +11,9 @@ CREATE TABLE ccca.item (
   length INTEGER,
   weight INTEGER
 );
+
+CREATE TABLE ccca.coupon (
+  code TEXT PRIMARY KEY,
+  percentage NUMERIC,
+  expire_date TIMESTAMP
+);

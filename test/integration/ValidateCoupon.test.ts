@@ -1,9 +1,11 @@
 import ValidateCoupon from '../../src/application/ValidateCoupon';
 import Coupon from '../../src/domain/entity/Coupon';
-import CouponRepositoryMemory from '../../src/infra/repository/memory/CouponRepositoryMemory';
+import PgPromiseConnectionAdapter from '../../src/infra/database/PgPromiseConnectionAdapter';
+import CouponRepositoryDatabase from '../../src/infra/repository/database/CouponRepositoryDatabase';
 
 describe('ValidateCoupon', () => {
-  const couponRepository = new CouponRepositoryMemory();
+  const connection = PgPromiseConnectionAdapter.getInstance();
+  const couponRepository = new CouponRepositoryDatabase(connection);
 
   beforeAll(async () => {
     await couponRepository.save(new Coupon('VALE20', 20, new Date('2021-12-31T23:59:59')));
