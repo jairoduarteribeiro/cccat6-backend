@@ -1,11 +1,13 @@
 import ItemRepository from '../domain/repository/ItemRepository';
 import Order from '../domain/entity/Order';
 import OrderRepository from '../domain/repository/OrderRepository';
+import CouponRepository from '../domain/repository/CouponRepository';
 
 export default class PlaceOrder {
   constructor(
     private readonly itemRepository: ItemRepository,
-    private readonly orderRepository: OrderRepository
+    private readonly orderRepository: OrderRepository,
+    private readonly couponRepository: CouponRepository
   ) {}
 
   async execute(input: PlaceOrderInput): Promise<PlaceOrderOutput> {
@@ -14,6 +16,10 @@ export default class PlaceOrder {
     for (const orderItem of input.orderItems) {
       const item = await this.itemRepository.getById(orderItem.idItem);
       order.addItem(item, orderItem.quantity);
+    }
+    if (input.coupon) {
+      const coupon = await this.couponRepository.getByCode(input.coupon);
+      order.addCoupon(coupon);
     }
     const code = await this.orderRepository.save(order);
     return {
@@ -27,6 +33,7 @@ type PlaceOrderInput = {
   cpf: string;
   orderItems: { idItem: number; quantity: number }[];
   issueDate?: Date;
+  coupon?: string;
 };
 
 type PlaceOrderOutput = {
