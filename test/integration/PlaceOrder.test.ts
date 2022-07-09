@@ -12,7 +12,6 @@ describe('PlaceOrder', () => {
   const itemRepository = new ItemRepositoryDatabase(connection);
   const orderRepository = new OrderRepositoryMemory();
   const couponRepository = new CouponRepositoryMemory();
-  const placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository);
 
   beforeAll(async () => {
     await itemRepository.save(new Item(1, 'Guitarra', 1000, new Dimension(100, 30, 10), 3));
@@ -22,6 +21,7 @@ describe('PlaceOrder', () => {
   });
 
   it('should place an order', async () => {
+    const placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository);
     const input = {
       cpf: '669.314.740-22',
       orderItems: [
@@ -36,6 +36,7 @@ describe('PlaceOrder', () => {
   });
 
   it('should place an order and generate the order code', async () => {
+    const placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository);
     const input = {
       cpf: '669.314.740-22',
       orderItems: [
@@ -51,6 +52,7 @@ describe('PlaceOrder', () => {
   });
 
   it('should place an order with discount', async () => {
+    const placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository);
     const input = {
       cpf: '669.314.740-22',
       orderItems: [
