@@ -5,12 +5,12 @@ import Item from '../../src/domain/entity/Item';
 import PgPromiseConnectionAdapter from '../../src/infra/database/PgPromiseConnectionAdapter';
 import CouponRepositoryDatabase from '../../src/infra/repository/database/CouponRepositoryDatabase';
 import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase';
-import OrderRepositoryMemory from '../../src/infra/repository/memory/OrderRepositoryMemory';
+import OrderRepositoryDatabase from '../../src/infra/repository/database/OrderRepositoryDatabase';
 
 describe('PlaceOrder', () => {
   const connection = PgPromiseConnectionAdapter.getInstance();
   const itemRepository = new ItemRepositoryDatabase(connection);
-  const orderRepository = new OrderRepositoryMemory();
+  const orderRepository = new OrderRepositoryDatabase(connection);
   const couponRepository = new CouponRepositoryDatabase(connection);
 
   beforeAll(async () => {

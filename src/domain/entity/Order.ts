@@ -30,6 +30,10 @@ export default class Order {
     }
   }
 
+  getCpf() {
+    return this.cpf.value;
+  }
+
   getCode() {
     return this.orderCode.value;
   }
@@ -38,5 +42,21 @@ export default class Order {
     const total = this.orderItems.reduce((total, orderItem) => total + orderItem.getTotal(), 0);
     const discount = this.coupon?.calculateDiscount(total) ?? 0;
     return total - discount + this.freight.getTotal();
+  }
+
+  getFreight() {
+    return this.freight.getTotal();
+  }
+
+  getIssueDate() {
+    return this.issueDate;
+  }
+
+  getCouponCode(): string | undefined {
+    return this.coupon?.code;
+  }
+
+  getOrderItems() {
+    return [...this.orderItems];
   }
 }
