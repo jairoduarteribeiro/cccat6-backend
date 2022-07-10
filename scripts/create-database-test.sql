@@ -17,3 +17,20 @@ CREATE TABLE ccca.coupon (
   percentage NUMERIC,
   expire_date TIMESTAMP
 );
+
+CREATE TABLE ccca.order (
+  order_code TEXT PRIMARY KEY,
+  cpf TEXT,
+  issue_date TIMESTAMP,
+  coupon_code TEXT,
+  total NUMERIC,
+  freight NUMERIC
+);
+
+CREATE TABLE ccca.order_item (
+  order_code TEXT,
+  id_item INTEGER,
+  price NUMERIC,
+  quantity INTEGER,
+  PRIMARY KEY (order_code, id_item)
+);
