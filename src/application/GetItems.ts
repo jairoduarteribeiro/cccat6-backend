@@ -3,9 +3,9 @@ import ItemRepository from '../domain/repository/ItemRepository';
 export default class GetItems {
   constructor(private readonly itemRepository: ItemRepository) {}
 
-  async execute(): Promise<GetItemsOutput[]> {
+  async execute(): Promise<Output[]> {
     const items = await this.itemRepository.getAll();
-    const output: GetItemsOutput[] = [];
+    const output: Output[] = [];
     for (const { idItem, description, price } of items) {
       output.push({ idItem, description, price });
     }
@@ -13,7 +13,7 @@ export default class GetItems {
   }
 }
 
-type GetItemsOutput = {
+type Output = {
   idItem: number;
   description: string;
   price: number;

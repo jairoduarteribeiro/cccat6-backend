@@ -3,7 +3,7 @@ import CouponRepository from '../domain/repository/CouponRepository';
 export default class ValidateCoupon {
   constructor(private readonly couponRepository: CouponRepository) {}
 
-  async execute(input: ValidateCouponInput): Promise<ValidateCouponOutput> {
+  async execute(input: Input): Promise<Output> {
     const coupon = await this.couponRepository.getByCode(input.code);
     const isExpired = coupon.isExpired(input.today);
     return {
@@ -12,11 +12,11 @@ export default class ValidateCoupon {
   }
 }
 
-type ValidateCouponInput = {
+type Input = {
   code: string;
   today: Date;
 };
 
-type ValidateCouponOutput = {
+type Output = {
   isExpired: boolean;
 };

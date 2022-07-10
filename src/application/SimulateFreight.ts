@@ -4,7 +4,7 @@ import ItemRepository from '../domain/repository/ItemRepository';
 export default class SimulateFreight {
   constructor(private readonly itemRepository: ItemRepository) {}
 
-  async execute(input: SimulateFreightInput): Promise<SimulateFreightOutput> {
+  async execute(input: Input): Promise<Output> {
     const freight = new Freight();
     for (const orderItem of input.orderItems) {
       const item = await this.itemRepository.getById(orderItem.idItem);
@@ -16,10 +16,10 @@ export default class SimulateFreight {
   }
 }
 
-type SimulateFreightInput = {
+type Input = {
   orderItems: { idItem: number; quantity: number }[];
 };
 
-type SimulateFreightOutput = {
+type Output = {
   total: number;
 };

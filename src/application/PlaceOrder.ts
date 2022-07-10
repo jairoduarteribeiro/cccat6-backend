@@ -10,7 +10,7 @@ export default class PlaceOrder {
     private readonly couponRepository: CouponRepository
   ) {}
 
-  async execute(input: PlaceOrderInput): Promise<PlaceOrderOutput> {
+  async execute(input: Input): Promise<Output> {
     const sequence = (await this.orderRepository.count()) + 1;
     const order = new Order(input.cpf, input.issueDate, sequence);
     for (const orderItem of input.orderItems) {
@@ -29,14 +29,14 @@ export default class PlaceOrder {
   }
 }
 
-type PlaceOrderInput = {
+type Input = {
   cpf: string;
   orderItems: { idItem: number; quantity: number }[];
   issueDate?: Date;
   coupon?: string;
 };
 
-type PlaceOrderOutput = {
+type Output = {
   code: string;
   total: number;
 };

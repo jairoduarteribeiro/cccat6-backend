@@ -3,7 +3,7 @@ import Connection from '../../infra/database/Connection';
 export default class GetOrderQuery {
   constructor(private readonly connection: Connection) {}
 
-  async execute(orderCode: string): Promise<GetOrderQueryOutput> {
+  async execute(orderCode: string): Promise<Output> {
     const [orderData] = await this.connection.query(
       'SELECT order_code, total FROM ccca.order WHERE order_code = $1',
       [orderCode]
@@ -16,7 +16,7 @@ export default class GetOrderQuery {
   }
 }
 
-type GetOrderQueryOutput = {
+type Output = {
   orderCode: string;
   total: number;
 };
