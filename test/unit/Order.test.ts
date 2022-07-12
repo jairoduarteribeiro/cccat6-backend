@@ -51,4 +51,12 @@ describe('Order', () => {
     const total = order.getTotal();
     expect(total).toBe(6090);
   });
+
+  it('should throw an Error if some Item is added twice', () => {
+    const order = new Order('669.314.740-22', new Date('2022-01-01T00:00:00'));
+    order.addItem(new Item(1, 'Guitarra', 1000), 1);
+    expect(() => order.addItem(new Item(1, 'Guitarra', 1000), 1)).toThrow(
+      new Error('Item was already added')
+    );
+  });
 });
