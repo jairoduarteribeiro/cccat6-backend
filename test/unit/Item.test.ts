@@ -19,4 +19,10 @@ describe('Item', () => {
     const density = item.getDensity();
     expect(density).toBe(0);
   });
+
+  it('should not create an Item with negative weight', () => {
+    expect(() => new Item(1, 'Guitarra', 1000, new Dimension(100, 30, 10), -1)).toThrow(
+      new Error('Invalid weight')
+    );
+  });
 });
