@@ -20,10 +20,13 @@ export default class Order {
   }
 
   addItem(item: Item, quantity: number) {
-    if (this.orderItems.find((orderItem) => orderItem.idItem === item.idItem))
-      throw new Error('Item was already added');
+    if (this.isDuplicated(item)) throw new Error('Item was already added');
     this.orderItems.push(new OrderItem(item.idItem, item.price, quantity));
     this.freight.addItem(item, quantity);
+  }
+
+  private isDuplicated(item: Item) {
+    return this.orderItems.some((orderItem) => orderItem.idItem === item.idItem);
   }
 
   addCoupon(coupon: Coupon) {
