@@ -1,23 +1,21 @@
-import Http from './Http';
 import express, { Express, Request, Response } from 'express';
-
-type Method = 'get' | 'post';
+import Http, { Method } from './Http';
 
 export default class ExpressAdapter implements Http {
-  app: Express;
+  private readonly app: Express;
 
   constructor() {
     this.app = express();
   }
 
-  on(method: Method, url: string, callback: Function) {
+  async on(method: Method, url: string, callback: Function): Promise<void> {
     this.app[method](url, async (req: Request, res: Response) => {
       const output = await callback(req.params, req.body);
       res.send(output);
     });
   }
 
-  listen(port: number): void {
-    this.app.listen(port, () => console.log(`Listening on port ${port}...`));
+  async listen(port: number): Promise<void> {
+    this.app.listen(port, () => console.log(`Server is running on port ${port}`));
   }
 }

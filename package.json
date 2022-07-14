@@ -4,7 +4,8 @@
   "scripts": {
     "test": "jest --runInBand",
     "coverage": "jest --runInBand --coverage",
-    "watch": "jest --runInBand --watchAll"
+    "watch": "jest --runInBand --watchAll",
+    "dev": "NODE_ENV=development && nodemon src/main.ts"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
