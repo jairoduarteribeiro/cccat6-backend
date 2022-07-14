@@ -49,7 +49,7 @@ describe('GetOrders', () => {
 
   it('should get all orders', async () => {
     const getOrders = new GetOrdersQuery(connection);
-    const output = await getOrders.execute(orderCode2);
+    const output = await getOrders.execute();
     expect(output).toHaveLength(2);
     expect(output[0].total).toBe(6350);
     expect(output[1].total).toBe(5132);
