@@ -3,6 +3,7 @@ import GetOrderQuery from '../../src/application/query/GetOrderQuery';
 import Coupon from '../../src/domain/entity/Coupon';
 import Dimension from '../../src/domain/entity/Dimension';
 import Item from '../../src/domain/entity/Item';
+import OrderDAODatabase from '../../src/infra/dao/OrderDAODatabase';
 import PgPromiseConnectionAdapter from '../../src/infra/database/PgPromiseConnectionAdapter';
 import CouponRepositoryDatabase from '../../src/infra/repository/database/CouponRepositoryDatabase';
 import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase';
@@ -13,6 +14,7 @@ describe('GetOrder', () => {
   const itemRepository = new ItemRepositoryDatabase(connection);
   const orderRepository = new OrderRepositoryDatabase(connection);
   const couponRepository = new CouponRepositoryDatabase(connection);
+  const orderDAO = new OrderDAODatabase(connection);
   const placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository);
   const input1 = {
     cpf: '669.314.740-22',
@@ -48,7 +50,7 @@ describe('GetOrder', () => {
   });
 
   it('should get an order by code', async () => {
-    const getOrder = new GetOrderQuery(connection);
+    const getOrder = new GetOrderQuery(orderDAO);
     const output = await getOrder.execute(orderCode2);
     expect(output.orderCode).toBe('202200000002');
     expect(output.total).toBe(5132);

@@ -1,17 +1,11 @@
-import Connection from '../../infra/database/Connection';
+import OrderDAO from '../dao/OrderDAO';
 
 export default class GetOrdersQuery {
-  constructor(private readonly connection: Connection) {}
+  constructor(private readonly orderDAO: OrderDAO) {}
 
   async execute(): Promise<Output[]> {
-    const orders: Output[] = [];
-    const ordersData = await this.connection.query('SELECT order_code, total FROM ccca.order', []);
-    for (const orderData of ordersData) {
-      const orderCode = orderData['order_code'];
-      const total = parseFloat(orderData['total']);
-      orders.push({ orderCode, total });
-    }
-    return orders;
+    const ordersData = await this.orderDAO.getAll();
+    return ordersData;
   }
 }
 
