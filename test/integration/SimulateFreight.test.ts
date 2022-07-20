@@ -2,11 +2,12 @@ import SimulateFreight from '../../src/application/SimulateFreight';
 import Dimension from '../../src/domain/entity/Dimension';
 import Item from '../../src/domain/entity/Item';
 import PgPromiseConnectionAdapter from '../../src/infra/database/PgPromiseConnectionAdapter';
-import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase';
+import DatabaseRepositoryFactory from '../../src/infra/factory/DatabaseRepositoryFactory';
 
 describe('SimulateFreight', () => {
   const connection = PgPromiseConnectionAdapter.getInstance();
-  const itemRepository = new ItemRepositoryDatabase(connection);
+  const repositoryFactory = new DatabaseRepositoryFactory(connection);
+  const itemRepository = repositoryFactory.createItemRepository();
 
   beforeAll(async () => {
     await itemRepository.save(new Item(1, 'Guitarra', 1000, new Dimension(100, 30, 10), 3));
@@ -15,7 +16,7 @@ describe('SimulateFreight', () => {
   });
 
   it('should simulate the freight', async () => {
-    const simulateFreight = new SimulateFreight(itemRepository);
+    const simulateFreight = new SimulateFreight(repositoryFactory);
     const input = {
       orderItems: [
         { idItem: 1, quantity: 1 },

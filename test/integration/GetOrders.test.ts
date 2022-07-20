@@ -5,17 +5,16 @@ import Dimension from '../../src/domain/entity/Dimension';
 import Item from '../../src/domain/entity/Item';
 import OrderDAODatabase from '../../src/infra/dao/OrderDAODatabase';
 import PgPromiseConnectionAdapter from '../../src/infra/database/PgPromiseConnectionAdapter';
-import CouponRepositoryDatabase from '../../src/infra/repository/database/CouponRepositoryDatabase';
-import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase';
-import OrderRepositoryDatabase from '../../src/infra/repository/database/OrderRepositoryDatabase';
+import DatabaseRepositoryFactory from '../../src/infra/factory/DatabaseRepositoryFactory';
 
 describe('GetOrders', () => {
   const connection = PgPromiseConnectionAdapter.getInstance();
-  const itemRepository = new ItemRepositoryDatabase(connection);
-  const orderRepository = new OrderRepositoryDatabase(connection);
-  const couponRepository = new CouponRepositoryDatabase(connection);
+  const repositoryFactory = new DatabaseRepositoryFactory(connection);
+  const itemRepository = repositoryFactory.createItemRepository();
+  const orderRepository = repositoryFactory.createOrderRepository();
+  const couponRepository = repositoryFactory.createCouponRepository();
   const orderDAO = new OrderDAODatabase(connection);
-  const placeOrder = new PlaceOrder(itemRepository, orderRepository, couponRepository);
+  const placeOrder = new PlaceOrder(repositoryFactory);
   const input1 = {
     cpf: '669.314.740-22',
     orderItems: [

@@ -1,8 +1,13 @@
 import Freight from '../domain/entity/Freight';
+import RepositoryFactory from '../domain/factory/RepositoryFactory';
 import ItemRepository from '../domain/repository/ItemRepository';
 
 export default class SimulateFreight {
-  constructor(private readonly itemRepository: ItemRepository) {}
+  private readonly itemRepository: ItemRepository;
+
+  constructor(repositoryFactory: RepositoryFactory) {
+    this.itemRepository = repositoryFactory.createItemRepository();
+  }
 
   async execute(input: Input): Promise<Output> {
     const freight = new Freight();

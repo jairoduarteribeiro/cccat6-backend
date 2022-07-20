@@ -1,12 +1,13 @@
 import Dimension from '../../src/domain/entity/Dimension';
 import GetItems from '../../src/application/GetItems';
 import Item from '../../src/domain/entity/Item';
-import ItemRepositoryDatabase from '../../src/infra/repository/database/ItemRepositoryDatabase';
 import PgPromiseConnectionAdapter from '../../src/infra/database/PgPromiseConnectionAdapter';
+import DatabaseRepositoryFactory from '../../src/infra/factory/DatabaseRepositoryFactory';
 
 describe('GetItems', () => {
   const connection = PgPromiseConnectionAdapter.getInstance();
-  const itemRepository = new ItemRepositoryDatabase(connection);
+  const repositoryFactory = new DatabaseRepositoryFactory(connection);
+  const itemRepository = repositoryFactory.createItemRepository();
 
   beforeAll(async () => {
     await itemRepository.save(new Item(1, 'Guitarra', 1000, new Dimension(100, 30, 10), 3));
@@ -15,7 +16,7 @@ describe('GetItems', () => {
   });
 
   it('should get all items', async () => {
-    const getItems = new GetItems(itemRepository);
+    const getItems = new GetItems(repositoryFactory);
     const output = await getItems.execute();
     expect(output).toHaveLength(3);
   });

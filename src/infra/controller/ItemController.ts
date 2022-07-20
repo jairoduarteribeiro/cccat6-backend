@@ -1,11 +1,11 @@
 import GetItems from '../../application/GetItems';
-import ItemRepository from '../../domain/repository/ItemRepository';
+import RepositoryFactory from '../../domain/factory/RepositoryFactory';
 import Http from '../http/Http';
 
 export default class ItemController {
-  constructor(private readonly http: Http, private readonly itemRepository: ItemRepository) {
+  constructor(private readonly http: Http, repositoryFactory: RepositoryFactory) {
     http.on('get', '/items', async (params: any, body: any) => {
-      const getItems = new GetItems(this.itemRepository);
+      const getItems = new GetItems(repositoryFactory);
       const output = await getItems.execute();
       return output;
     });

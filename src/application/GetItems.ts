@@ -1,7 +1,12 @@
+import RepositoryFactory from '../domain/factory/RepositoryFactory';
 import ItemRepository from '../domain/repository/ItemRepository';
 
 export default class GetItems {
-  constructor(private readonly itemRepository: ItemRepository) {}
+  private readonly itemRepository: ItemRepository;
+
+  constructor(repositoryFactory: RepositoryFactory) {
+    this.itemRepository = repositoryFactory.createItemRepository();
+  }
 
   async execute(): Promise<Output[]> {
     const items = await this.itemRepository.getAll();
