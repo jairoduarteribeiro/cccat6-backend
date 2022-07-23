@@ -34,3 +34,9 @@ CREATE TABLE ccca.order_item (
   quantity INTEGER,
   PRIMARY KEY (order_code, id_item)
 );
+
+CREATE TABLE ccca.stock_entry (
+  id_item INTEGER,
+  operation TEXT,
+  quantity INTEGER
+);
