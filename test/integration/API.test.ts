@@ -5,6 +5,7 @@ import Dimension from '../../src/domain/entity/Dimension';
 import Item from '../../src/domain/entity/Item';
 import PgPromiseConnectionAdapter from '../../src/infra/database/PgPromiseConnectionAdapter';
 import DatabaseRepositoryFactory from '../../src/infra/factory/DatabaseRepositoryFactory';
+import MemoryQueueAdapter from '../../src/infra/queue/MemoryQueueAdapter';
 
 describe('API', () => {
   const connection = PgPromiseConnectionAdapter.getInstance();
@@ -12,7 +13,8 @@ describe('API', () => {
   const itemRepository = repositoryFactory.createItemRepository();
   const orderRepository = repositoryFactory.createOrderRepository();
   const couponRepository = repositoryFactory.createCouponRepository();
-  const placeOrder = new PlaceOrder(repositoryFactory);
+  const queue = new MemoryQueueAdapter();
+  const placeOrder = new PlaceOrder(repositoryFactory, queue);
   const input1 = {
     cpf: '669.314.740-22',
     orderItems: [

@@ -6,6 +6,7 @@ import Item from '../../src/domain/entity/Item';
 import OrderDAODatabase from '../../src/infra/dao/OrderDAODatabase';
 import PgPromiseConnectionAdapter from '../../src/infra/database/PgPromiseConnectionAdapter';
 import DatabaseRepositoryFactory from '../../src/infra/factory/DatabaseRepositoryFactory';
+import MemoryQueueAdapter from '../../src/infra/queue/MemoryQueueAdapter';
 
 describe('GetOrder', () => {
   const connection = PgPromiseConnectionAdapter.getInstance();
@@ -14,7 +15,8 @@ describe('GetOrder', () => {
   const orderRepository = repositoryFactory.createOrderRepository();
   const couponRepository = repositoryFactory.createCouponRepository();
   const orderDAO = new OrderDAODatabase(connection);
-  const placeOrder = new PlaceOrder(repositoryFactory);
+  const queue = new MemoryQueueAdapter();
+  const placeOrder = new PlaceOrder(repositoryFactory, queue);
   const input1 = {
     cpf: '669.314.740-22',
     orderItems: [

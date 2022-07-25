@@ -3,13 +3,15 @@ import Order from '../domain/entity/Order';
 import OrderRepository from '../domain/repository/OrderRepository';
 import CouponRepository from '../domain/repository/CouponRepository';
 import RepositoryFactory from '../domain/factory/RepositoryFactory';
+import OrderPlaced from '../domain/event/OrderPlaced';
+import Queue from '../infra/queue/Queue';
 
 export default class PlaceOrder {
   private readonly itemRepository: ItemRepository;
   private readonly orderRepository: OrderRepository;
   private readonly couponRepository: CouponRepository;
 
-  constructor(repositoryFactory: RepositoryFactory) {
+  constructor(repositoryFactory: RepositoryFactory, private readonly queue: Queue) {
     this.itemRepository = repositoryFactory.createItemRepository();
     this.orderRepository = repositoryFactory.createOrderRepository();
     this.couponRepository = repositoryFactory.createCouponRepository();
@@ -27,6 +29,8 @@ export default class PlaceOrder {
       order.addCoupon(coupon);
     }
     const code = await this.orderRepository.save(order);
+    const orderPlaced = new OrderPlaced(order.getCode(), order.getOrderItems());
+    await this.queue.publish(orderPlaced);
     return {
       code,
       total: order.getTotal(),
